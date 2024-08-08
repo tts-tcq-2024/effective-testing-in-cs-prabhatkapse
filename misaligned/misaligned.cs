@@ -3,20 +3,23 @@ using System.Diagnostics;
 
 namespace MisalignedSpace {
     class Misaligned {
-        static int printColorMap() {
-            string[] majorColors = {"White", "Red", "Black", "Yellow", "Violet"};
-            string[] minorColors = {"Blue", "Orange", "Green", "Brown", "Slate"};
-            int i = 0, j = 0;
-            for(i = 0; i < 5; i++) {
-                for(j = 0; j < 5; j++) {
-                    Console.WriteLine("{0} | {1} | {2}", i * 5 + j, majorColors[i], minorColors[i]);
-                }
-            }
-            return i * j;
-        }
         static void Main(string[] args) {
-            int result = printColorMap();
-            Debug.Assert(result == 25);
+            var colorMap = ColorCode.GenerateColorMap();
+            Debug.Assert(colorMap[0] ==  "1 | White | Blue");
+            Debug.Assert(colorMap[1] ==  "2 | White | Orange");
+            Debug.Assert(colorMap[8] ==  "9 | Red | Brown");
+            Debug.Assert(colorMap[13] == "14 | Black | Brown");
+            Debug.Assert(colorMap[17] == "18 | Yellow | Green");
+            Debug.Assert(colorMap[22] == "23 | Violet | Green");
+            Debug.Assert(colorMap[24] == "25 | Violet | Slate");
+
+            Debug.Assert(colorMap[0] ==  "01 | White  | Blue");
+            Debug.Assert(colorMap[8] ==  "09 | Red    | Brown");
+            Debug.Assert(colorMap[17] == "18 | Yellow | Green");
+            Debug.Assert(colorMap[22] == "23 | Violet | Green");
+
+            PrintStringArray.PrintColorMap(colorMap);
+
             Console.WriteLine("All is well (maybe!)");
         }
     }
