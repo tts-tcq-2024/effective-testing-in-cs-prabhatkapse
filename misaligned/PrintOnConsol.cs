@@ -1,8 +1,8 @@
 namespace MisalignedSpace
 {
-    public static class PrintStringArray
+    public class PrintOnConsol : IPrint
     {
-        public static void PrintColorMap(string[] colorMap)
+        public void StringList(List<string> colorMap)
         {
             foreach (var entry in colorMap)
             {
