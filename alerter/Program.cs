@@ -8,15 +8,25 @@ namespace AlerterSpace
     {
         static void Main(string[] args)
         {
-            var Alerter = new Alerter(new NetworkAlert());
+            Alerter alerter;
 
-            Alerter.alertInCelcius(400.5f);
-            Debug.Assert(Alerter.alertFailureCount == 1);
+            alerter = new Alerter(new NetworkAlert());
+            alerter.alertInCelcius(400.5f);
+            Debug.Assert(alerter.alertFailureCount == 0);
+            
+            alerter = new Alerter(new NotOkNetworkAlert());
+            alerter.alertInCelcius(400.5f);
+            Debug.Assert(alerter.alertFailureCount == 1);
 
-            Alerter.alertInCelcius(303.6f);
-            Debug.Assert(Alerter.alertFailureCount == 2);
+            var _MopNetworkAlert = new MopNetworkAlert();
+            alerter = new Alerter(_MopNetworkAlert);
+            float farenheit = 120.6f;
+            float expectedcelcius = (farenheit - 32) * 5 / 9;
+            alerter.alertInCelcius(farenheit);
+            Debug.Assert(_MopNetworkAlert.celcius == expectedcelcius);
 
-            Console.WriteLine("{0} alerts failed.", Alerter.alertFailureCount);
+
+            Console.WriteLine("{0} alerts failed.", alerter.alertFailureCount);
             Console.WriteLine("All is well (maybe!)\n");
         }
 
